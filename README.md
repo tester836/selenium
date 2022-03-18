@@ -1,5 +1,7 @@
-#Tasks
-##I Can Win
+# Tasks
+
+## I Can Win
+
 При выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. 
 Автоматизировать следующий сценарий:
 
@@ -9,9 +11,9 @@
   * Paste Expiration: "10 Minutes"
   * Paste Name / Title: "helloweb"
 
-##Bring It On
+## Bring It On
 
-##Hurt Me Plenty
+## Hurt Me Plenty
 
-##Hardcore
+## Hardcore
 
