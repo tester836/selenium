@@ -29,12 +29,13 @@ public class IcanWinTest {
 
         driver.findElement(By.id("postform-text")).sendKeys("Hello from WebDriver" + Keys.ENTER);
 
-        driver.findElement(By.id("postform-name")).sendKeys("helloweb" + Keys.ENTER);
 
         driver.findElement(By.id("select2-postform-expiration-container")).click();
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By
                 .xpath("//*[@class='select2-results__option select2-results__option--highlighted' and text()='10 Minutes']")))
                 .click();
+
+        driver.findElement(By.id("postform-name")).sendKeys("helloweb" + Keys.ENTER);
 
         driver.findElement(By.xpath("//*[@type='submit']")).click();
 
@@ -44,7 +45,6 @@ public class IcanWinTest {
         System.out.println(textPosted.getText());
 
         Assert.assertTrue(textPosted.isDisplayed(), "Pasted text doesn't displayed.");
-
 
     }
 
