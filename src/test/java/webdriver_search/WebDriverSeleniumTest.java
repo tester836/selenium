@@ -1,3 +1,5 @@
+package webdriver_search;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -30,7 +32,7 @@ public class WebDriverSeleniumTest {
         WebElement searchInput = driver.findElement(By.xpath("//input[@type='search']"));
         searchInput.sendKeys("test");
 
-        Thread.sleep(5000);//debug
+        Thread.sleep(10000);//debug
 
         searchInput.sendKeys(Keys.ENTER);
 
