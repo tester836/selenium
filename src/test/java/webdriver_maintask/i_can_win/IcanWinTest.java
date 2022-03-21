@@ -21,8 +21,10 @@ public class IcanWinTest {
 
     @BeforeMethod(alwaysRun = true)
     public void browserOpen() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("--incognito");
+//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
         driver = new ChromeDriver();
         driver.manage().window().fullscreen();
