@@ -1,12 +1,10 @@
-package webdriver_maintask.i_can_win;
+package webdriver_maintask.pastebin;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -16,7 +14,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class SeleniumTest {
+public class PastebinTest {
     private WebDriver driver;
 
     @BeforeMethod(alwaysRun = true)
@@ -78,15 +76,32 @@ public class SeleniumTest {
                 .click();
 
         driver.findElement(By.id("postform-name"))
-                .sendKeys("how to gain dominance among developers" + Keys.ENTER);
+                .sendKeys("how to gain dominance among developers");
 
         driver.findElement(By.xpath("//*[@type='submit']"))
                 .click();
 
-        WebElement textPosted = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='notice -success -post-view']")));
-        System.out.println(textPosted.getText());
-        Assert.assertTrue(textPosted.isDisplayed(), "Pasted text doesn't displayed.");
+        WebElement namePosted = new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(ExpectedConditions.visibilityOfElementLocated(By
+                        .xpath("//*[@class='info-top']/h1")));
+        System.out.println(namePosted.getText());
+        String nameTyped = "how to gain dominance among developers";
+        Assert.assertEquals(nameTyped, namePosted, "Pasted name is displayed incorrectly.");
+
+        WebElement highlightedCode = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By
+                        .xpath("//a[text()='Bash']")));
+        System.out.println(highlightedCode.getText());
+        Assert.assertTrue(highlightedCode.isDisplayed(), "Code is not highlighted.");
+
+        WebElement codePosted = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.presenceOfElementLocated(By
+                        .xpath("//*[@class='textarea']/text()")));
+        String codeTyped = "git config --global user.name  \"New Sheriff in Town\"\n" +
+                "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
+                "git push origin master --force";
+        System.out.println(codePosted.getText());
+        Assert.assertEquals(codeTyped, codePosted, "Posted code is displayed incorrectly.");
 
 
     }
