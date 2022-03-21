@@ -5,6 +5,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -19,6 +21,9 @@ public class IcanWinTest {
 
     @BeforeMethod(alwaysRun = true)
     public void browserOpen() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--incognito");
+
         driver = new ChromeDriver();
         driver.manage().window().fullscreen();
     }
@@ -27,17 +32,20 @@ public class IcanWinTest {
     public void iCanWin() throws InterruptedException {
         driver.get("https://pastebin.com");
 
-        driver.findElement(By.id("postform-text")).sendKeys("Hello from WebDriver" + Keys.ENTER);
+        driver.findElement(By.id("postform-text"))
+                .sendKeys("Hello from WebDriver" + Keys.ENTER);
 
-
-        driver.findElement(By.id("select2-postform-expiration-container")).click();
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(By
-                .xpath("//*[@class='select2-results__option select2-results__option--highlighted' and text()='10 Minutes']")))
+        driver.findElement(By.id("select2-postform-expiration-container"))
                 .click();
 
-        driver.findElement(By.id("postform-name")).sendKeys("helloweb" + Keys.ENTER);
+        driver.findElement(By.xpath("//*[@class='select2-results__option' and text()='10 Minutes']"))
+                .click();
 
-        driver.findElement(By.xpath("//*[@type='submit']")).click();
+        driver.findElement(By.id("postform-name"))
+                .sendKeys("helloweb" + Keys.ENTER);
+
+        driver.findElement(By.xpath("//*[@type='submit']"))
+                .click();
 
         WebElement textPosted = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='notice -success -post-view']")));
