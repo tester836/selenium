@@ -57,11 +57,11 @@ public class PastebinTest {
                 .click();
 
         WebElement textPosted = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='notice -success -post-view']")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By
+                        .xpath("//*[@class='notice -success -post-view']")));
 
         System.out.println(textPosted.getText());
-
-        Assert.assertTrue(textPosted.isDisplayed(), "Pasted text doesn't displayed.");
+            Assert.assertTrue(textPosted.isDisplayed(), "Pasted text doesn't displayed.");
 
     }
 
@@ -90,30 +90,26 @@ public class PastebinTest {
         driver.findElement(By.id("postform-name"))
                 .sendKeys(nameTyped + Keys.ENTER);
 
-//        driver.findElement(By.xpath("//*[@type='submit']"))
-//                .click();
 
         WebElement namePosted = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[@class='info-top']/h1")));
 
         System.out.println(namePosted.getText());
-
-
-        Assert.assertEquals(nameTyped, namePosted.getText(), "Pasted name is displayed incorrectly.");
+            Assert.assertEquals(nameTyped, namePosted.getText(), "Pasted name is displayed incorrectly.");
 
         WebElement highlightedCode = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//a[text()='Bash']")));
         System.out.println(highlightedCode.getText());
-        Assert.assertTrue(highlightedCode.isDisplayed(), "Code is not highlighted.");
+            Assert.assertTrue(highlightedCode.isDisplayed(), "Code is not highlighted.");
 
         WebElement codePosted = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.presenceOfElementLocated(By
                         .xpath("//*[@class='textarea']/text()")));
 
         System.out.println(codePosted.getText());
-        Assert.assertEquals(codeTyped, codePosted.getText(), "Posted code is displayed incorrectly.");
+            Assert.assertEquals(codeTyped, codePosted.getText(), "Posted code is displayed incorrectly.");
 
 
     }
