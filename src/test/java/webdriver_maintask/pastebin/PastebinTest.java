@@ -15,26 +15,25 @@ import java.time.Duration;
 
 public class PastebinTest {
     private WebDriver driver;
-    String username = "Mister_836";
-    String password = "tester424000";
+    String username = "***";
+    String password = "***";
 
     @BeforeMethod(alwaysRun = true)
     public void browserOpen() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("--incognito");
 
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver(/*options*/);
         driver.manage().window().fullscreen();
 
-        driver.get("https://pastebin.com/login");
-
-        new WebDriverWait(driver, Duration.ofSeconds(60))
-                .until(ExpectedConditions.visibilityOfElementLocated(By
-                        .id("loginform-username")));
-        driver.findElement(By.id("loginform-username"))
-                .sendKeys(username);
-        driver.findElement(By.id("loginform-password"))
-                .sendKeys(password + Keys.ENTER);
+//        driver.get("https://pastebin.com/login");
+//        new WebDriverWait(driver, Duration.ofSeconds(60))
+//                .until(ExpectedConditions.visibilityOfElementLocated(By
+//                        .id("loginform-username")));
+//        driver.findElement(By.id("loginform-username"))
+//                .sendKeys(username);
+//        driver.findElement(By.id("loginform-password"))
+//                .sendKeys(password + Keys.ENTER);
 
     }
 
@@ -91,12 +90,11 @@ public class PastebinTest {
                 .sendKeys(nameTyped + Keys.ENTER);
 
 
-        WebElement namePosted = new WebDriverWait(driver, Duration.ofSeconds(15))
+        WebElement namePosted = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[@class='info-top']/h1")));
-
         System.out.println(namePosted.getText());
-            Assert.assertEquals(nameTyped, namePosted.getText(), "Pasted name is displayed incorrectly.");
+            Assert.assertEquals(nameTyped, namePosted.getText(), "Posted name is displayed incorrectly.");
 
         WebElement highlightedCode = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
@@ -106,7 +104,7 @@ public class PastebinTest {
 
         WebElement codePosted = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//*[@class='textarea']/text()")));
+                        .xpath("//textarea[@class='textarea']/text()")));
 
         System.out.println(codePosted.getText());
             Assert.assertEquals(codeTyped, codePosted.getText(), "Posted code is displayed incorrectly.");
