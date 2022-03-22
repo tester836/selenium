@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -35,31 +36,32 @@ public class CloudGoogleTest {
     @Test (description = "'Hurt Me Plenty' test of Google Cloud")
     public void HurtMePlenty() {
 
-        String searchText = "Google Cloud Platform Pricing Calculator";
-        String numberOfInstances = "4";
-
         driver.get("https://cloud.google.com/");
         driver.findElement(By.name("q"))
-                .sendKeys(searchText + Keys.ENTER);
+                .sendKeys("Google Cloud Platform Pricing Calculator" + Keys.ENTER);
 
-        new WebDriverWait(driver, Duration.ofSeconds(60))
+        new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(By
-                        .xpath("//*[text()='Google Cloud Pricing Calculator']")))
+                        .xpath("//*[@class='gs-title' and @data-ctorig='https://cloud.google.com/products/calculator']")))
                 .click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(60))
-                .until(ExpectedConditions.elementToBeClickable(By
-                        .xpath("//div[@class='name ng-binding' and text()='Compute Engine']")))
-               .click();
+//        driver.get("https://cloud.google.com/products/calculator"); //debug
 
-        driver.findElement(By.id("input_668"))
-                .sendKeys(numberOfInstances);
+//        new WebDriverWait(driver, Duration.ofSeconds(10))
+//                .until(ExpectedConditions.elementToBeClickable(By
+//                        .xpath("//div[@class='name ng-binding' and text()='Compute Engine']")))
+//                .click();
 
-        driver.findElement(By.id("select_value_label_660")).click();
-        driver.findElement(By.id("select_option_670")).click();
+        //todo ids are changes, need another selector
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By
+                        .id("input_80")))
+                .sendKeys("4");
 
-        driver.findElement(By.id("select_value_label_661")).click();
-        driver.findElement(By.id("select_option_683")).click();
+        driver.findElement(By.id("select_value_label_72")).click();
+        driver.findElement(By.id("select_option_82")).click();
+
+        driver.findElement(By.id("select_value_label_73")).click();
+        driver.findElement(By.id("select_option_95")).click();
 
         driver.findElement(By.id("select_value_label_663")).click();
         driver.findElement(By.id("select_option_846")).click();
@@ -72,7 +74,19 @@ public class CloudGoogleTest {
         driver.findElement(By.id("select_1126")).click();
         driver.findElement(By.id("select_option_1133")).click();
 
+        driver.findElement(By.id("select_value_label_455")).click();
+        driver.findElement(By.id("select_option_481")).click();
 
+        driver.findElement(By.id("select_value_label_417")).click();
+        driver.findElement(By.id("select_option_444")).click();
+
+        driver.findElement(By.id("select_value_label_78")).click();
+        driver.findElement(By.id("select_option_241")).click();
+
+        driver.findElement(By.id("select_value_label_79")).click();
+        driver.findElement(By.id("select_option_118")).click();
+
+        driver.findElement(By.xpath("//button[@aria-label='Add to Estimate']")).click();
 
 
 
