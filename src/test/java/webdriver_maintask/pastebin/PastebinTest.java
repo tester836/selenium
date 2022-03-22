@@ -37,7 +37,13 @@ public class PastebinTest {
 
     }
 
-    @Test(description = "I can win")
+    @AfterMethod(alwaysRun = true)
+    public void browserClose() {
+        driver.quit();
+        driver = null;
+    }
+
+    @Test(description = "'I can win' test of pastebin.com")
     public void iCanWin() {
         driver.get("https://pastebin.com");
 
@@ -64,7 +70,7 @@ public class PastebinTest {
 
     }
 
-    @Test (description = "Bring It On")
+    @Test (description = "'Bring It On' test of pastebin.com")
     public void bringItOn() {
         String codeTyped = "git config --global user.name  \"New Sheriff in Town\"\n" +
                 "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
@@ -109,12 +115,5 @@ public class PastebinTest {
         System.out.println(codePosted.getText());
             Assert.assertEquals(codeTyped, codePosted.getText(), "Posted code is displayed incorrectly.");
 
-
-    }
-
-        @AfterMethod(alwaysRun = true)
-    public void browserClose() {
-        driver.quit();
-        driver = null;
     }
 }
