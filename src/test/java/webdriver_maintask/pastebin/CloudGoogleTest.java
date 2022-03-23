@@ -62,8 +62,9 @@ public class CloudGoogleTest {
 
 
         new WebDriverWait(driver, Duration.ofSeconds(60)).until(ExpectedConditions.visibilityOfElementLocated(By
-                        .name("quantity")))
-                .sendKeys("4");
+                        .xpath("//form[@name='ComputeEngineForm']")));
+
+        driver.findElement(By.xpath("//input[@name='quantity']")).sendKeys("4");
 
 //        driver.findElement(By.id("select_value_label_72")).click();
         driver.findElement(By.xpath("//md-option[@value='free']")).click();
