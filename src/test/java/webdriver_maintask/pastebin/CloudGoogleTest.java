@@ -36,11 +36,11 @@ public class CloudGoogleTest {
     @Test (description = "'Hurt Me Plenty' test of Google Cloud")
     public void HurtMePlenty() {
 
-        String vmClassInput = "VM class: regular";
-        String instanceTypeInput = "Instance type: n1-standard-8";
-        String regionInput = "Region: Frankfurt";
-        String ssdInput = "Local SSD: 2x375 GiB";
-        String totalCostPerMonthInput = "Total Estimated Cost:\n USD 4,559.11\n per 1 month";
+        String vmClassExpected = "VM class: regular";
+        String instanceTypeExpected = "Instance type: n1-standard-8";
+        String regionExpected = "Region: Frankfurt";
+        String ssdExpected = "Local SSD: 2x375 GiB";
+        String totalCostPerMonthExpected = "Total Estimated Cost:\n USD 4,559.11\n per 1 month";
 
 
 //        driver.get("https://cloud.google.com/");
@@ -61,7 +61,7 @@ public class CloudGoogleTest {
 
 
 
-        new WebDriverWait(driver, Duration.ofSeconds(60)).until(ExpectedConditions.elementToBeClickable(By
+        new WebDriverWait(driver, Duration.ofSeconds(60)).until(ExpectedConditions.visibilityOfElementLocated(By
                         .name("quantity")))
                 .sendKeys("4");
 
@@ -100,39 +100,39 @@ public class CloudGoogleTest {
                 .id("resultBlock")));
 
 
-        WebElement vmClassOutput = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement vmClassActual = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'regular') and @class='md-list-item-text ng-binding']")));
-            System.out.println(vmClassOutput.getText());
-        Assert.assertEquals(vmClassInput, vmClassOutput.getText(), "VM Class is displayed incorrectly.");
+            System.out.println(vmClassActual.getText());
+        Assert.assertEquals(vmClassExpected, vmClassActual.getText(), "VM Class is displayed incorrectly.");
 
 
-        WebElement instanceTypeOutput = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement instanceTypeActual = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'n1-standard-8') and @class='md-list-item-text ng-binding cpc-cart-multiline flex']")));
-            System.out.println(instanceTypeOutput.getText());
-        Assert.assertEquals(instanceTypeInput, instanceTypeOutput.getText(), "Instance type is displayed incorrectly.");
+            System.out.println(instanceTypeActual.getText());
+        Assert.assertEquals(instanceTypeExpected, instanceTypeActual.getText(), "Instance type is displayed incorrectly.");
 
 
-        WebElement regionOutput = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement regionActual = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'Frankfurt') and @class='md-list-item-text ng-binding']")));
-            System.out.println(regionOutput.getText());
-        Assert.assertEquals(regionInput, regionOutput.getText(), "Region is displayed incorrectly.");
+            System.out.println(regionActual.getText());
+        Assert.assertEquals(regionExpected, regionActual.getText(), "Region is displayed incorrectly.");
 
 
-        WebElement ssdOutput = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement ssdActual = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'SSD') and @class='md-list-item-text ng-binding flex']")));
-        System.out.println(ssdOutput.getText());
-        Assert.assertEquals(ssdInput, ssdOutput.getText(), "Local SSD is displayed incorrectly.");
+        System.out.println(ssdActual.getText());
+        Assert.assertEquals(ssdExpected, ssdActual.getText(), "Local SSD is displayed incorrectly.");
 
 
-        WebElement totalCostPerMonthOutput = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement totalCostPerMonthActual = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'Total Estimated Cost') and @class='ng-binding']")));
-        System.out.println(totalCostPerMonthOutput.getText());
-        Assert.assertEquals(totalCostPerMonthInput, totalCostPerMonthOutput.getText(), "Total cost is displayed incorrectly.");
+        System.out.println(totalCostPerMonthActual.getText());
+        Assert.assertEquals(totalCostPerMonthExpected, totalCostPerMonthActual.getText(), "Total cost is displayed incorrectly.");
 
     }
 
