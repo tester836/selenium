@@ -132,7 +132,7 @@ public class CloudGoogleTest {
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'Total Estimated Cost') and @class='ng-binding']")));
         System.out.println(totalCostPerMonthOutput.getText());
-        Assert.assertEquals(totalCostPerMonthInput, totalCostPerMonthOutput.getText(), "Local SSD is displayed incorrectly.");
+        Assert.assertEquals(totalCostPerMonthInput, totalCostPerMonthOutput.getText(), "Total cost is displayed incorrectly.");
 
     }
 
