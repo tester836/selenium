@@ -26,51 +26,51 @@ public class CloudGoogleTest {
         driver.manage().window().fullscreen();
     }
 
-//    @AfterMethod(alwaysRun = true)
-//    public void browserClose() {
-//        driver.quit();
-//        driver = null;
-//    }
+    @AfterMethod(alwaysRun = true)
+    public void browserClose() {
+        driver.quit();
+        driver = null;
+    }
 
 
     @Test (description = "'Hurt Me Plenty' test of Google Cloud")
     public void HurtMePlenty() {
 
-        driver.get("https://cloud.google.com/");
-        driver.findElement(By.name("q"))
-                .sendKeys("Google Cloud Platform Pricing Calculator" + Keys.ENTER);
+//        driver.get("https://cloud.google.com/");
+//        driver.findElement(By.name("q"))
+//                .sendKeys("Google Cloud Platform Pricing Calculator" + Keys.ENTER);
+//
+//        new WebDriverWait(driver, Duration.ofSeconds(30))
+//                .until(ExpectedConditions.elementToBeClickable(By
+//                        .xpath("//*[@class='gs-title' and @data-ctorig='https://cloud.google.com/products/calculator']")))
+//                .click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(By
-                        .xpath("//*[@class='gs-title' and @data-ctorig='https://cloud.google.com/products/calculator']")))
-                .click();
-
-//        driver.get("https://cloud.google.com/products/calculator"); //debug
+        driver.get("https://cloud.google.com/products/calculator");//debug
 
 //        new WebDriverWait(driver, Duration.ofSeconds(10))
 //                .until(ExpectedConditions.elementToBeClickable(By
-//                        .xpath("//div[@class='name ng-binding' and text()='Compute Engine']")))
+//                        .xpath("//*[@title='Compute Engine' and @class='tab-holder compute']")))
 //                .click();
 
-        //todo ids are changes, need another selector
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By
-                        .id("input_80")))
+
+
+        new WebDriverWait(driver, Duration.ofSeconds(60)).until(ExpectedConditions.elementToBeClickable(By
+                        .name("quantity")))
                 .sendKeys("4");
 
-        driver.findElement(By.id("select_value_label_72")).click();
-        driver.findElement(By.id("select_option_82")).click();
+//        driver.findElement(By.id("select_value_label_72")).click();
+        driver.findElement(By.xpath("//md-option[@value='free']")).click();
 
-        driver.findElement(By.id("select_value_label_73")).click();
-        driver.findElement(By.id("select_option_95")).click();
+//        driver.findElement(By.id("select_value_label_73")).click();
+        driver.findElement(By.xpath("//md-option[@value='regular']")).click();
 
-        driver.findElement(By.id("select_value_label_663")).click();
-        driver.findElement(By.id("select_option_846")).click();
+//        driver.findElement(By.id("select_value_label_663")).click();
+        driver.findElement(By.xpath("//md-option[@value='n1']")).click();
 
-        driver.findElement(By.id("select_value_label_664")).click();
-        driver.findElement(By.id("select_option_1053")).click();
+//        driver.findElement(By.id("select_value_label_664")).click();
+        driver.findElement(By.xpath("//md-option[@value='CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-8']")).click();
 
-        driver.findElement(By.xpath("//*[@aria-label='Add GPUs' and @aria-checked='false']"))
-                .click();
+        driver.findElement(By.xpath("//*[@aria-label='Add GPUs' and @aria-checked='false']")).click();
         driver.findElement(By.id("select_1126")).click();
         driver.findElement(By.id("select_option_1133")).click();
 
@@ -87,23 +87,6 @@ public class CloudGoogleTest {
         driver.findElement(By.id("select_option_118")).click();
 
         driver.findElement(By.xpath("//button[@aria-label='Add to Estimate']")).click();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
