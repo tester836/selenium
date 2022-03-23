@@ -15,8 +15,8 @@ import java.time.Duration;
 
 public class PastebinTest {
     private WebDriver driver;
-    String username = "***";
-    String password = "***";
+//    String username = "*";
+//    String password = "*";
 
     @BeforeMethod(alwaysRun = true)
     public void browserOpen() {

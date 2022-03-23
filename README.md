@@ -56,9 +56,9 @@ git push origin master --force
     * GPU type: NVIDIA Tesla V100
   * Local SSD: 2x375 Gb
   * Datacenter location: Frankfurt (europe-west3)
-  * Commited usage: 1 Year
+  * Committed usage: 1 Year
 7. Нажать Add to Estimate
-8. Проверить соответствие данных следующих полей: VM Class, Instance type, Region, local SSD, commitment term
+8. Проверить соответствие данных следующих полей: VM Class, Instance type, Region, local SSD, (commitment term)
 9. Проверить что сумма аренды в месяц совпадает с суммой получаемой при ручном прохождении теста.
 
 ## Hardcore
