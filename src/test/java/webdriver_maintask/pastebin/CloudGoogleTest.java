@@ -37,7 +37,8 @@ public class CloudGoogleTest {
         String instanceTypeExpected = "Instance type: n1-standard-8";
         String regionExpected = "Region: Frankfurt";
         String ssdExpected = "Local SSD: 2x375 GiB";
-        String totalCostPerMonthExpected = "Total Estimated Cost:\n USD 4,559.11\n per 1 month";
+        String totalCostPerMonthExpected = "Total Estimated Cost:\n USD 4,026.13\n per 1 month";
+        String totalCostExpected = "Total Estimated Monthly Cost USD 4,026.13";
 
 
 //        driver.get("https://cloud.google.com/");
@@ -154,10 +155,14 @@ public class CloudGoogleTest {
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
                 .id("mail")));
 
-        WebElement totalCostFromEmail = new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOfElementLocated(By
-                .xpath("//*[contains(text(), 'Total')]")));
-        System.out.println(totalCostFromEmail.getText());
-        Assert.assertEquals(totalCostPerMonthExpected, totalCostFromEmail.getText(), "Total cost in email is displayed incorrectly.");
+        WebElement totalCostTitleFromEmail = new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//h3[contains(text(), 'Total')]")));
+        WebElement totalCostAmountFromEmail = new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//h3[contains(text(), 'USD')]")));
+
+        String totalCostFromEmail = totalCostTitleFromEmail.getText() + " " + totalCostAmountFromEmail.getText();
+        System.out.println(totalCostFromEmail);
+        Assert.assertEquals(totalCostExpected, totalCostFromEmail, "Total cost in email is displayed incorrectly.");
 
     }
 
