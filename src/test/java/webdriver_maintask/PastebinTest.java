@@ -1,4 +1,4 @@
-package webdriver_maintask.pastebin;
+package webdriver_maintask;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,7 +24,7 @@ public class PastebinTest {
 //        options.addArguments("--incognito");
 
         driver = new ChromeDriver(/*options*/);
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
 
 //        driver.get("https://pastebin.com/login");
 //        new WebDriverWait(driver, Duration.ofSeconds(60))
@@ -61,7 +61,7 @@ public class PastebinTest {
         driver.findElement(By.xpath("//*[@type='submit']"))
                 .click();
 
-        WebElement textPosted = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement textPosted = new WebDriverWait(driver, Duration.ofSeconds(20))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[@class='notice -success -post-view']")));
 
@@ -96,23 +96,18 @@ public class PastebinTest {
                 .sendKeys(nameTyped + Keys.ENTER);
 
 
-        WebElement namePosted = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement namePosted = new WebDriverWait(driver, Duration.ofSeconds(20))
                 .until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[@class='info-top']/h1")));
-        System.out.println(namePosted.getText());
+        System.out.println("Posted name:\n" + namePosted.getText());
             Assert.assertEquals(nameTyped, namePosted.getText(), "Posted name is displayed incorrectly.");
 
-        WebElement highlightedCode = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By
-                        .xpath("//a[text()='Bash']")));
-        System.out.println(highlightedCode.getText());
+        WebElement highlightedCode = driver.findElement(By.xpath("//a[text()='Bash']"));
+        System.out.println("\nPosted syntax:\n" + highlightedCode.getText());
             Assert.assertTrue(highlightedCode.isDisplayed(), "Code is not highlighted.");
 
-        WebElement codePosted = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.presenceOfElementLocated(By
-                        .xpath("//textarea[@class='textarea']/text()")));
-
-        System.out.println(codePosted.getText());
+        WebElement codePosted = driver.findElement(By.xpath("//textarea[@class='textarea']"));
+        System.out.println("\nPosted code:\n" + codePosted.getText());
             Assert.assertEquals(codeTyped, codePosted.getText(), "Posted code is displayed incorrectly.");
 
     }
