@@ -128,8 +128,7 @@ public class CloudGoogleTest {
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
                     .name("emailForm")));
 
-        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"t");
-//        ((JavascriptExecutor)driver).executeScript("window.open()");
+        ((JavascriptExecutor)driver).executeScript("window.open()");
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
 
 
