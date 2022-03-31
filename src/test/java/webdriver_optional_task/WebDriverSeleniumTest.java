@@ -1,4 +1,4 @@
-package webdriver_search;
+package webdriver_optional_task;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
