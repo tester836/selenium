@@ -1,8 +1,10 @@
 package webdriver_maintask;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -10,12 +12,15 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
 import java.time.Duration;
 import java.util.ArrayList;
 
 
+
 public class CloudGoogleTest {
     private WebDriver driver;
+    private final Logger logger = LogManager.getRootLogger();
 
     @BeforeMethod(alwaysRun = true)
     public void browserOpen() {
@@ -23,11 +28,11 @@ public class CloudGoogleTest {
         driver.manage().window().maximize();
     }
 
-//    @AfterMethod(alwaysRun = true)
-//    public void browserClose() {
-//        driver.quit();
-//        driver = null;
-//    }
+    @AfterMethod(alwaysRun = true)
+    public void browserClose() {
+        driver.quit();
+        driver = null;
+    }
 
 
     @Test (description = "'Hurt Me Plenty' and 'Hardcore' tests of Google Cloud")
@@ -58,16 +63,12 @@ public class CloudGoogleTest {
         driver.findElement(By.xpath("//*[@ng-model='listingCtrl.computeServer.quantity']"))
                 .sendKeys("4");
 
-//        driver.findElement(By.id("select_value_label_72")).click();
         driver.findElement(By.xpath("//md-option[@value='free']")).click();
 
-//        driver.findElement(By.id("select_value_label_73")).click();
         driver.findElement(By.xpath("//md-option[@value='regular']")).click();
 
-//        driver.findElement(By.id("select_value_label_663")).click();
         driver.findElement(By.xpath("//md-option[@value='n1']")).click();
 
-//        driver.findElement(By.id("select_value_label_664")).click();
         driver.findElement(By.xpath("//md-option[@value='CP-COMPUTEENGINE-VMIMAGE-N1-STANDARD-8']")).click();
 
         driver.findElement(By.xpath("//*[@aria-label='Add GPUs' and @aria-checked='false']")).click();
@@ -94,31 +95,31 @@ public class CloudGoogleTest {
 
         WebElement machineClassActual = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'regular') and @class='md-list-item-text ng-binding']")));
-            System.out.println(machineClassActual.getText());
+        logger.info(machineClassActual.getText());
         Assert.assertEquals(machineClassExpected, machineClassActual.getText(), "VM Class is displayed incorrectly.");
 
 
         WebElement instanceTypeActual = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'n1-standard-8') and @class='md-list-item-text ng-binding cpc-cart-multiline flex']")));
-            System.out.println(instanceTypeActual.getText());
+        logger.info(instanceTypeActual.getText());
         Assert.assertEquals(instanceTypeExpected, instanceTypeActual.getText(), "Instance type is displayed incorrectly.");
 
 
         WebElement regionActual = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'Frankfurt') and @class='md-list-item-text ng-binding']")));
-            System.out.println(regionActual.getText());
+        logger.info(regionActual.getText());
         Assert.assertEquals(regionExpected, regionActual.getText(), "Region is displayed incorrectly.");
 
 
         WebElement ssdActual = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'SSD') and @class='md-list-item-text ng-binding flex']")));
-        System.out.println(ssdActual.getText());
+        logger.info(ssdActual.getText());
         Assert.assertEquals(ssdExpected, ssdActual.getText(), "Local SSD is displayed incorrectly.");
 
 
         WebElement totalCostPerMonthActual = new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By
                         .xpath("//*[contains(text(), 'Total Estimated Cost') and @class='ng-binding']")));
-        System.out.println(totalCostPerMonthActual.getText());
+        logger.info(totalCostPerMonthActual.getText());
         Assert.assertEquals(totalCostPerMonthExpected, totalCostPerMonthActual.getText(), "Total cost is displayed incorrectly.");
 
 
@@ -137,7 +138,7 @@ public class CloudGoogleTest {
 
         WebElement emailGenerated = new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOfElementLocated(By
                 .id("egen")));
-        System.out.println(emailGenerated.getText());
+        logger.info(emailGenerated.getText());
 
 
         driver.switchTo().window(tabs.get(0));
@@ -157,9 +158,9 @@ public class CloudGoogleTest {
         WebElement totalCostAmountFromEmail = new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOfElementLocated(By
                 .xpath("//h3[contains(text(), 'USD')]")));
 
-        //need to get only amount from email and compare it with amount from cloud.google
+        //as improvement: need to get only amount from email and compare it with amount from cloud.google
         String totalCostFromEmail = totalCostTitleFromEmail.getText() + " " + totalCostAmountFromEmail.getText();
-        System.out.println(totalCostFromEmail);
+        logger.info(totalCostFromEmail);
         Assert.assertEquals(totalCostExpected, totalCostFromEmail, "Total cost in email is displayed incorrectly.");
 
     }
