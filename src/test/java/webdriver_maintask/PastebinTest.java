@@ -106,7 +106,7 @@ public class PastebinTest {
         System.out.println("\nPosted syntax:\n" + highlightedCode.getText());
             Assert.assertTrue(highlightedCode.isDisplayed(), "Code is not highlighted.");
 
-        WebElement codePosted = driver.findElement(By.xpath("//textarea[@class='textarea']"));
+        WebElement codePosted = driver.findElement(By.xpath("//textarea[contains(@class, 'textarea')]"));
         System.out.println("\nPosted code:\n" + codePosted.getText());
             Assert.assertEquals(codeTyped, codePosted.getText(), "Posted code is displayed incorrectly.");
 
