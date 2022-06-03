@@ -45,25 +45,25 @@ public class PastebinTest {
 
     @Test(description = "'I can win' test of pastebin.com")
     public void iCanWin() {
-        driver.get("https://pastebin.com");
+        String pastebinURl = "https://pastebin.com";
+        By codeTextLocator = By.id("postform-text");
+        String codeTextToSend = "Hello from WebDriver";
+        By pasteExpirationLocator = By.id("select2-postform-expiration-container");
+        By pasteExpirationMenuLocator = By.xpath("//*[@class='select2-results__option' and text()='10 Minutes']");
+        By pasteNameLocator = By.id("postform-name");
+        String pasteNameTextToSend = "helloweb";
+        By submitButtonLocator = By.xpath("//*[@type='submit']");
+        By postLocator = By.xpath("//*[@class='notice -success -post-view']");
 
-        driver.findElement(By.id("postform-text"))
-                .sendKeys("Hello from WebDriver");
-
-        driver.findElement(By.id("select2-postform-expiration-container"))
-                .click();
-        driver.findElement(By.xpath("//*[@class='select2-results__option' and text()='10 Minutes']"))
-                .click();
-
-        driver.findElement(By.id("postform-name"))
-                .sendKeys("helloweb");
-
-        driver.findElement(By.xpath("//*[@type='submit']"))
-                .click();
+        driver.get(pastebinURl);
+        driver.findElement(codeTextLocator).sendKeys(codeTextToSend);
+        driver.findElement(pasteExpirationLocator).click();
+        driver.findElement(pasteExpirationMenuLocator).click();
+        driver.findElement(pasteNameLocator).sendKeys(pasteNameTextToSend);
+        driver.findElement(submitButtonLocator).click();
 
         WebElement textPosted = new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.visibilityOfElementLocated(By
-                        .xpath("//*[@class='notice -success -post-view']")));
+                .until(ExpectedConditions.visibilityOfElementLocated(postLocator));
 
         System.out.println(textPosted.getText());
             Assert.assertTrue(textPosted.isDisplayed(), "Pasted text doesn't displayed.");
