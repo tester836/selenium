@@ -53,7 +53,7 @@ git push origin master --force
   * Instance type: n1-standard-8    (vCPUs: 8, RAM: 30 GB)
   * Выбрать Add GPUs
     * Number of GPUs: 1
-    * GPU type: NVIDIA Tesla V100
+    * GPU type: NVIDIA Tesla V100 // for now, NVIDIA_TESLA_V100 is disabled
   * Local SSD: 2x375 Gb
   * Datacenter location: Frankfurt (europe-west3)
   * Committed usage: 1 Year
