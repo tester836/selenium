@@ -15,8 +15,27 @@ import java.time.Duration;
 
 public class PastebinTest {
     private WebDriver driver;
-//    String username = "*";
-//    String password = "*";
+//    String username = "test";
+//    String password = "test";
+    String pastebinURL = "https://pastebin.com";
+    By codeTextLocator = By.id("postform-text");
+    String codeTextToSend = "Hello from WebDriver";
+    By codeFormatMenuLocator = By.id("select2-postform-format-container");
+    By codeFormatLocator = By.xpath("//*[@class='select2-results__option' and text()='Bash']");
+    By pasteExpirationMenuLocator = By.id("select2-postform-expiration-container");
+    By pasteExpirationLocator = By.xpath("//li[@id='select2-postform-expiration-result-2mfr-10M' or text()='10 Minutes']");
+    By pasteNameLocator = By.id("postform-name");
+    String pasteNameTextToSend = "helloweb";
+    By submitButtonLocator = By.xpath("//*[@type='submit']");
+    By postLocator = By.xpath("//*[@class='notice -success -post-view']");
+
+    String codeTyped = "git config --global user.name  \"New Sheriff in Town\"\n" +
+            "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
+            "git push origin master --force";
+    String nameTyped = "how to gain dominance among developers";
+    By namePostedLocator = By.xpath("//*[@class='info-top']/h1");
+    By codeFormatPostedLocator = By.xpath("//a[text()='Bash']");
+    By codePostedLocator = By.xpath("//textarea[contains(@class, 'textarea')]");
 
     @BeforeMethod(alwaysRun = true)
     public void browserOpen() {
@@ -45,20 +64,11 @@ public class PastebinTest {
 
     @Test(description = "'I can win' test of pastebin.com")
     public void iCanWin() {
-        String pastebinURl = "https://pastebin.com";
-        By codeTextLocator = By.id("postform-text");
-        String codeTextToSend = "Hello from WebDriver";
-        By pasteExpirationLocator = By.id("select2-postform-expiration-container");
-        By pasteExpirationMenuLocator = By.xpath("//*[@class='select2-results__option' and text()='10 Minutes']");
-        By pasteNameLocator = By.id("postform-name");
-        String pasteNameTextToSend = "helloweb";
-        By submitButtonLocator = By.xpath("//*[@type='submit']");
-        By postLocator = By.xpath("//*[@class='notice -success -post-view']");
 
-        driver.get(pastebinURl);
+        driver.get(pastebinURL);
         driver.findElement(codeTextLocator).sendKeys(codeTextToSend);
-        driver.findElement(pasteExpirationLocator).click();
         driver.findElement(pasteExpirationMenuLocator).click();
+        driver.findElement(pasteExpirationLocator).click();
         driver.findElement(pasteNameLocator).sendKeys(pasteNameTextToSend);
         driver.findElement(submitButtonLocator).click();
 
@@ -72,41 +82,26 @@ public class PastebinTest {
 
     @Test (description = "'Bring It On' test of pastebin.com")
     public void bringItOn() {
-        String codeTyped = "git config --global user.name  \"New Sheriff in Town\"\n" +
-                "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
-                "git push origin master --force";
-        String nameTyped = "how to gain dominance among developers";
 
-        driver.get("https://pastebin.com");
-
-        driver.findElement(By.id("postform-text"))
-                .sendKeys(codeTyped);
-
-        driver.findElement(By.id("select2-postform-format-container"))
-                .click();
-        driver.findElement(By.xpath("//*[@class='select2-results__option' and text()='Bash']"))
-                .click();
-
-        driver.findElement(By.id("select2-postform-expiration-container"))
-                .click();
-        driver.findElement(By.xpath("//*[@class='select2-results__option' and text()='10 Minutes']"))
-                .click();
-
-        driver.findElement(By.id("postform-name"))
-                .sendKeys(nameTyped + Keys.ENTER);
+        driver.get(pastebinURL);
+        driver.findElement(codeTextLocator).sendKeys(codeTyped);
+        driver.findElement(codeFormatMenuLocator).click();
+        driver.findElement(codeFormatLocator).click();
+        driver.findElement(pasteExpirationMenuLocator).click();
+        driver.findElement(pasteExpirationLocator).click();
+        driver.findElement(pasteNameLocator).sendKeys(nameTyped + Keys.ENTER);
 
 
         WebElement namePosted = new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.visibilityOfElementLocated(By
-                        .xpath("//*[@class='info-top']/h1")));
+                .until(ExpectedConditions.visibilityOfElementLocated(namePostedLocator));
         System.out.println("Posted name:\n" + namePosted.getText());
             Assert.assertEquals(nameTyped, namePosted.getText(), "Posted name is displayed incorrectly.");
 
-        WebElement highlightedCode = driver.findElement(By.xpath("//a[text()='Bash']"));
+        WebElement highlightedCode = driver.findElement(codeFormatPostedLocator);
         System.out.println("\nPosted syntax:\n" + highlightedCode.getText());
             Assert.assertTrue(highlightedCode.isDisplayed(), "Code is not highlighted.");
 
-        WebElement codePosted = driver.findElement(By.xpath("//textarea[contains(@class, 'textarea')]"));
+        WebElement codePosted = driver.findElement(codePostedLocator);
         System.out.println("\nPosted code:\n" + codePosted.getText());
             Assert.assertEquals(codeTyped, codePosted.getText(), "Posted code is displayed incorrectly.");
 
