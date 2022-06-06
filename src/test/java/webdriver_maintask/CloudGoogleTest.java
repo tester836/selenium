@@ -35,7 +35,8 @@ public class CloudGoogleTest {
     @Test (description = "'Hurt Me Plenty' and 'Hardcore' tests of Google Cloud")
     public void HurtMePlenty() {
 
-        String baseUrl = "https://cloud.google.com/"; //"https://cloud.google.com/products/calculator"
+        String baseURL = "https://cloud.google.com/";
+        String targetURL = "https://cloud.google.com/products/calculator";
         String machineClassExpected = "VM class: regular";
         String instanceTypeExpected = "Instance type: n1-standard-8";
         String regionExpected = "Region: Frankfurt";
@@ -46,7 +47,7 @@ public class CloudGoogleTest {
         By searchQueryLocator = By.name("q");
         String searchText = "Google Cloud Platform Pricing Calculator";
         By calculatorPageLocator = By.xpath("//*[@class='gs-title' and @data-ctorig='https://cloud.google.com/products/calculator']");
-        By numberOfInstancesLocator = By.xpath("//*[@ng-model='listingCtrl.computeServer.quantity']");
+        By numberOfInstancesLocator = By.xpath("//*[@name='quantity' or aria-label='quantity']");
         String numberOfInstances = "4";
         By operatingSystemLocator = By.xpath("//md-option[@value='free']");
         By vmClassLocator = By.xpath("//md-option[@value='regular']");
@@ -69,16 +70,17 @@ public class CloudGoogleTest {
         By regionActualLocator = By.xpath("//*[contains(text(), 'Frankfurt') and @class='md-list-item-text ng-binding']");
         By ssdActualLocator = By.xpath("//*[contains(text(), 'SSD') and @class='md-list-item-text ng-binding flex']");
         By totalCostPerMonthActualLocator = By.xpath("//*[contains(text(), 'Total Estimated Cost') and @class='ng-binding']");
+        By mainFormLocator = By.xpath("//*[@id='mainForm']/div[2]");
 
+        driver.get(targetURL);
+//        new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions
+//                .visibilityOfElementLocated(searchQueryLocator))
+//                .sendKeys(searchText + Keys.ENTER);
+//        new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions
+//                .elementToBeClickable(calculatorPageLocator)).click();
 
-        driver.get(baseUrl);
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions
-                .visibilityOfElementLocated(searchQueryLocator))
-                .sendKeys(searchText + Keys.ENTER);
-
-        new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions
-                .elementToBeClickable(calculatorPageLocator)).click();
-
+                .visibilityOfElementLocated(mainFormLocator));
         driver.findElement(numberOfInstancesLocator).sendKeys(numberOfInstances);
         driver.findElement(operatingSystemLocator).click();
         driver.findElement(vmClassLocator).click();
@@ -137,7 +139,7 @@ public class CloudGoogleTest {
                     .name("emailForm")));
 
         ((JavascriptExecutor)driver).executeScript("window.open()");
-        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
 
 
         driver.switchTo().window(tabs.get(1));
